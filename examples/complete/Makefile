@@ -13,7 +13,17 @@ CC = g++
 CFLAGS = -O3 ${WARNS} -fmessage-length=0 -I${INC_DIR}
 
 # Linker flags
-LDFLAGS = -L../../lib -lqrnglib 
+# LDFLAGS = -L../../lib -lqrnglib 
+ifeq ($(OS),Windows_NT)
+	LDFLAGS = -L../../lib/mingw -lqrnglib 
+else
+    UNAME_S := $(shell uname -s)
+    ifeq ($(UNAME_S),Linux)
+		LDFLAGS = -L../../lib/linux/static -lqrng_vertex 
+    endif
+endif
+
+
 
 .PHONY: all clean
 

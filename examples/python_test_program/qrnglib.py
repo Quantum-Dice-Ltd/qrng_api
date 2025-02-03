@@ -3,11 +3,12 @@ import ctypes
 import os
 
 # load the shared library or DLL 
+THIS_FILE_DIRECTORY = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../../lib")
 if platform.system() == 'Linux': 
-	qrnglibso =  os.path.join(os.getcwd(), 'libqrnglib.so') 
+	qrnglibso =  os.path.join(THIS_FILE_DIRECTORY, 'linux/libqrng_vertex.so') 
 	qrnglibhdlr = ctypes.CDLL(qrnglibso)
 else: 
-	qrnglibdll  = os.path.join(os.getcwd(), 'qrnglib.dll')
+	qrnglibdll  = os.path.join(THIS_FILE_DIRECTORY, 'qrng_vertex.dll')
 	qrnglibhdlr = ctypes.WinDLL(qrnglibdll)
 
 # Define the argument and return types for functions 

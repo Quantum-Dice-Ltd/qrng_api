@@ -27,6 +27,8 @@ The following are included in this directory:
     `pip install -U pytest`
 2. Run pytest 
     `python3 -m pytest -rP `
+    or 
+    `pytest -vs `
 
 Output:
 ```

@@ -1,7 +1,7 @@
 import qrnglib
 import pytest
 
-def tes_init_fn():
+def test_init_fn():
     """
     Tests the constructor of the qrng library with inputs 
     that are expected to raise an exception within it
