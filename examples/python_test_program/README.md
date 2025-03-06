@@ -25,6 +25,9 @@ The following are included in this directory:
 
 1. Install pytest (if it has not been installed yet)
     `pip install -U pytest`
+    > [!Note] The command to do this on your Linux distro might differ, you might have to look up how to install pytest on your machine. 
+    > However, you can try this command if the above doesn't work: 
+    `apt-get install python3-pytest` 
 2. Run pytest 
     `python3 -m pytest -rP `
     or 

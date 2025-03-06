@@ -45,7 +45,7 @@ int main()
     /** Initialize the QRNG api */
     #ifdef __unix__
         QRNG *qrng = qrng_init_param({QRNG_VERTEX_B1, "/dev/xdma0"});
-    #else _WIN32
+    #else //_WIN32
         QRNG* qrng = qrng_init_param({ QRNG_VERTEX_B1, "0" });
     #endif
     DEBUG_PRINT("\n QRNG init function status: %d", qrng_get_status(qrng));

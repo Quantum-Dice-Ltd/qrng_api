@@ -77,12 +77,11 @@ int main(int argc, char const* argv[])
 	}
 
 	int ret = 0;
-	char output_filename[] = "0_1_dist_2m_prng_1.txt";
 
 	/*1. Init qrng and prng */
 	#ifdef __unix__
 		QRNG* qrng = qrng_init_param({ QRNG_VERTEX_B1, "/dev/xdma0" });
-	#else _WIN32
+	#else //_WIN32
 		QRNG* qrng = qrng_init_param({ QRNG_VERTEX_B1, "0" });
 	#endif
 	printf("\nqrng init ret: %d \n", qrng_get_status(qrng));
@@ -126,8 +125,9 @@ int main(int argc, char const* argv[])
 
 		char fn[200] = { 0 };
 		snprintf(fn, sizeof(fn), "%s_%s_%d", file_name, data_type_str, a+1);
-		std::ofstream ofs(fn, std::ofstream::out);
+		std::ofstream ofs(fn, std::ofstream::out | std::ofstream::binary);
 		std::cout << "\nFile: " << fn << ", " << (a + 1) << " of " << num_of_files << ", is_open? " << ofs.is_open()  << std::endl;
+		int retry_count = 5; //retry 5 times
 
 		auto begin = std::chrono::steady_clock::now();
 
@@ -151,8 +151,14 @@ int main(int argc, char const* argv[])
 			}
 
 			//checks if any error occurred in the function
-			if (data_type == QRNG_RAW_DATA || data_type == QRNG_UDIST_DATA)
-				if (qrng_get_status(qrng))printf("\t\tERROR! from qrng fn,  error/status code: %d\n",  qrng_get_status(qrng));
+			if ( (data_type == QRNG_RAW_DATA || data_type == QRNG_UDIST_DATA) && qrng_get_status(qrng)) {
+				printf("\t\tERROR! from qrng fn,  error/status code: %d, ret: %d\n",  qrng_get_status(qrng), ret);
+				retry_count--;
+				if (retry_count < 0) {
+					printf("\t\tMax retries reached for this file!\n");
+					break;
+				}
+			}
 
 			auto end = std::chrono::steady_clock::now();
 			double time_diff = 0.000001 * std::chrono::duration_cast<std::chrono::microseconds> (end - begin).count();

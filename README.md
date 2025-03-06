@@ -2,7 +2,7 @@
 
 Title: "Quantum Dice QRNG API"
 
-Brief description: "This repo contains Quantum Dice's QRNG API library, drivers, documentation and sample projects"
+Brief description: "This repo contains Quantum Dice's QRNG API library, documentation and sample projects"
 
 Copyright: "(c) Quantum Dice. All rights reserved"
 
@@ -15,7 +15,7 @@ The QRNG APIs (Quantum Random Number Generator - Application Programming Interfa
 The QRNG APIs need Quantum Dice's QRNG hardware, without this hardware the functions would return an error.
 
 ## Requirements
-1. Vertex B1: Quantum Dice QRNG hardware
+1. Vertex B2: Quantum Dice QRNG hardware
 2. OS: Windows 10 or Ubuntu 22.04 (kernel version 5.19)
 3. Basic knowledge of C/C++/Python programming 
    
@@ -25,65 +25,39 @@ The QRNG APIs need Quantum Dice's QRNG hardware, without this hardware the funct
 
 ## Files and directories
 Below is the QRNGAPI package tree
-```
+```Python
 QRNGAPI/
 ├─ doc/
 │  ├─ ...
-│  └─ index.html
-├─ driver/
-│  ├─ linux/
-│  │  ├─ ...
-│  │  ├─ qrng_driver_setup.sh
-│  │  └─ README.md
-│  ├─ windows/
-│  │  ├─ ...
-│  │  └─ README.md
-├─ include/
-│  └─ qrng_api.h
-├─ lib/
-│  ├─ libqrnglib.a
-│  ├─ qrnglib.dll
-│  └─ qrnglib.lib
-├─ tests/
-├─ ├─ ...
+│  └─ index.html                    # Entry point for QRNG API reference doc
+├─ examples/
+│  ├─ ...
 │  └─ simple/
 │     ├─ ...
 │     ├─ simple.cpp
 │     └─ Makefile
-├─ tools/
-│  ├─ linux
-│  └─ windows
+├─ include/
+│  └─ qrng_api.h                    # QRNG API library header file
+├─ lib/
+│  ├─ linux/                        # QRNG API library for linux OS
+│  │  ├─ static/
+│  │  │  └─ libqrng_vertex.a
+│  │  └─ libqrng_vertex.so 
+│  └─ win/                          # QRNG API library for Windows OS
+│     ├─ mingw/
+│     │  └─ libqrnglib.a 
+│     └─ msvc/ 
+│        ├─ qrnglib.dll 
+│        └─ qrnglib.lib
 └─ README.md
 ```  
 
-
-| File        | Description |  
-| :---        |    :----:   |
-| ./doc/index.html      |  [QRNG API reference doc](./doc/index.html)      |
-| ./include/qrng_api.h   |  [QRNG library header](./include/qrng_api.h) |
-| ./lib/libqrnglib.a |  [QRNG static library](./lib/libqrnglib.a) for linux | 
-| ./lib/qrnglib.lib | [QRNG static library](./lib/qrnglib.lib) for windows | 
-
-
 ## Setup and usage guide 
-The sample programs can be found in the [tests](./tests) directory. Before running any of the sample projects install the device drivers.
 
-### Install driver on linux 
-1. Change directory to `./driver/linux` from the QRNGAPI home directory
-    ``` 
-    cd ./driver/linux 
-    ```
-2. Run the `qrng_driver_setup.sh` script as root. 
-    ``` 
-    sudo ./qrng_driver_setup.sh  
-    ```
-You should get a text like this at the end of the last command output: 
-```
-...
-The Kernel module installed correctly and the xmda devices were recognized.
-DONE
-```
-
+### Install the device driver
+First step is to install the necessary device drivers:
+1. [Linux driver]( https://github.com/Quantum-Dice-Ltd/vertex_linux_driver.git )
+2. [Windows driver]( https://github.com/Quantum-Dice-Ltd/vertex_windows_driver.git )
 
 ### Read the API documentation 
 Before proceeding you can read the QRNG API [Reference doc](./doc/index.html) (NB: should be viewed in a web browser), this documentation shows all the functions, their arguments and expected return value. 
@@ -92,12 +66,12 @@ Before proceeding you can read the QRNG API [Reference doc](./doc/index.html) (N
 THe QRNG management tool is a utility that can be used to manage all the QRNG devices that are connected to a host machine. 
 
 ### Build and run the sample application 
-The sample programs are platform independent and they have been tested on ubuntu 22.04 and Windows 10. Follow the  instructions below on how to compile and run the test program [simple.cpp](./tests/simple/simple.cpp) on either windows or linux. (NB: These sample programs can be found in `./tests/`)
+The sample programs are platform independent and they have been tested on ubuntu 22.04 and Windows 10. Follow the  instructions below on how to compile and run the test program [simple.cpp](./examples/simple/simple.cpp) on either windows or linux. (NB: These sample programs can be found in `./examples/`)
 
-#### Run on Windows
+#### How to run sample programs on Windows
 On windows you can build and run the sample programs with visual studio, visual studio project files have been included to ensure this is as simple as possible. 
 
-1. Open the solution file [QuantumDiceQRNG-pub.sln](./tests/QuantumDiceQRNG-pub.sln) in visual studio
+1. Open the solution file [QuantumDiceQRNG-pub.sln](./examples/QuantumDiceQRNG-pub.sln) in visual studio
 
 2. (Optional) Ensure that the header, libraries, and their directories are properly included by following the steps in the [Additional Information](#additional-information) section. 
 
@@ -107,13 +81,13 @@ On windows you can build and run the sample programs with visual studio, visual 
  
    2. You can use the shortcut `ctrl + b` or right-click the project name and select `build`
 
-   3. After building the `simple` project, run the program with the executable `.\tests\Build\winx64\Release\simple.exe`
+   3. After building the `simple` project, run the program with the executable `.\examples\Build\winx64\Release\simple.exe`
 
-#### Run on Linux
+#### How to run sample programs on Linux
 On linux you can use the Makefile included in the `simple` project directory to build it. 
 1. From the terminal, change directory to the project home 
     ``` 
-    cd .\tests\simple 
+    cd ./examples/simple 
     ```
 2. Remove any existing build files 
     ```
@@ -125,7 +99,7 @@ On linux you can use the Makefile included in the `simple` project directory to 
     ```  
 4. Run the binary as root 
     ```
-    sudo .\bin\simple
+    sudo ./bin/simple
     ```
 
 ### Results and Expected output
@@ -158,7 +132,7 @@ The output below is what to expect if the hardware is plugged in and drivers ins
 
 ### How to get the Entropy bits, Certification Value and Raw entropy data 
 
-The `qrng_get_with_ec` function in the API can be used to retrieve the Entropy bits and certification value data along side the QRNG hashed data, while the `qrng_get_raw_ent` is used to get the raw entropy data. Here is how to use the `qrng_get_with_ec` and `qrng_get_raw_ent` functions and the response to expect, see the project `tests\simple_ecr` for the source code of this program: 
+The `qrng_get_with_ec` function in the API can be used to retrieve the Entropy bits and certification value data along side the QRNG hashed data, while the `qrng_get_raw_ent` is used to get the raw entropy data. Here is how to use the `qrng_get_with_ec` and `qrng_get_raw_ent` functions and the response to expect, see the `simple_ecr` program in the `examples` directory for the source code of this program: 
 
 NB: THIS FEATURE IS ONLY AVAILABLE CERTAIN FIRMWARE VERSIONS, these functions may return an error number or wrong data if used with the wrong firmware version, get more info from the support team to know which device to use these functions with. 
 
@@ -191,7 +165,7 @@ The fourth is an array of raw Entropy, this set of data is not related to the fi
 
 
 ### Running other applications and tools
-See the directory of the other sample programs for specific instructions on their functionalities, and how to use them. For example, the `filedump` program can be found in `./tests/filedump` and it is used to generate a specified amount of quantum random numbers and write them to a file.
+See the directory of the other sample programs for specific instructions on their functionalities, and how to use them. For example, the `filedump` program can be found in `./examples/filedump` and it is used to generate a specified amount of quantum random numbers and write them to a file.
 
 
 ### Additional information 
@@ -203,9 +177,9 @@ In case you encounter any build errors when building on windows, check the follo
 
 3. Ensure that the QRNG library directory `$(SolutionDir)lib ` is included in the linker `Additional Library Directories`
 
-4. Ensure that `qrngprov.lib` is included in the linker `Additional Dependencies`
+4. Ensure that the static library file (`qrnglib.lib` or `qrng_vertex.lib`) is included in the linker `Additional Dependencies`
 
-5. Ensure that the `qrngprov.lib` and `qrngprov.dll` library files are present in the `.\lib` directory
+5. Ensure that the static library file (`qrnglib.lib` or `qrng_vertex.lib`) and the dynamic link library are present in the `.\lib` directory
 
 
 
