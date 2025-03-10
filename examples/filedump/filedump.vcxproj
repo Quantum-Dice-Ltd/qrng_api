@@ -145,7 +145,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>qrnglib.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\lib;C:\Program Files (x86)\Windows Kits\10\Cryptographic Provider Development Kit\Lib\x64;C:\Program Files (x86)\Windows Kits\8.1\Cryptographic Provider Development Kit\Lib\win8\x64;C:\Program Files\Windows Kits\8.1\Cryptographic Provider Development Kit\Lib\win8\x64;C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.35.32215\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\lib\win\msvc;C:\Program Files (x86)\Windows Kits\10\Cryptographic Provider Development Kit\Lib\x64;C:\Program Files (x86)\Windows Kits\8.1\Cryptographic Provider Development Kit\Lib\win8\x64;C:\Program Files\Windows Kits\8.1\Cryptographic Provider Development Kit\Lib\win8\x64;C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.35.32215\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX64</TargetMachine>
@@ -184,7 +184,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>qrnglib.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\lib;C:\Program Files (x86)\Windows Kits\10\Cryptographic Provider Development Kit\Lib\x64;C:\Program Files (x86)\Windows Kits\8.1\Cryptographic Provider Development Kit\Lib\win8\x64;C:\Program Files\Windows Kits\8.1\Cryptographic Provider Development Kit\Lib\win8\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\lib\win\msvc;C:\Program Files (x86)\Windows Kits\10\Cryptographic Provider Development Kit\Lib\x64;C:\Program Files (x86)\Windows Kits\8.1\Cryptographic Provider Development Kit\Lib\win8\x64;C:\Program Files\Windows Kits\8.1\Cryptographic Provider Development Kit\Lib\win8\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
